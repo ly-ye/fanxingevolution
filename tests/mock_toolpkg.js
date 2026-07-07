@@ -53,6 +53,9 @@ function makeMockToolPkg(opts) {
     toolboxUiModules: [],
     navigationEntries: [],
     lifecycleHooks: [],
+    toolLifecycleHooks: [],
+    systemPromptComposeHooks: [],
+    desktopWidgets: [],
     resources: opts.resources || {} // key -> content
   };
 
@@ -62,6 +65,9 @@ function makeMockToolPkg(opts) {
     registerToolboxUiModule: function (spec) { registered.toolboxUiModules.push(spec); },
     registerNavigationEntry: function (spec) { registered.navigationEntries.push(spec); },
     registerAppLifecycleHook: function (spec) { registered.lifecycleHooks.push(spec); },
+    registerToolLifecycleHook: function (spec) { registered.toolLifecycleHooks.push(spec); },
+    registerSystemPromptComposeHook: function (spec) { registered.systemPromptComposeHooks.push(spec); },
+    registerDesktopWidget: function (spec) { registered.desktopWidgets.push(spec); },
     // IPC：on 注册，call 异步调用（返回 Promise，匹配真实 ipc.call 语义）
     ipc: {
       on: function (name, handler) { ipcHandlers[name] = handler; },
@@ -99,6 +105,9 @@ function makeMockToolPkg(opts) {
       registered.toolboxUiModules = [];
       registered.navigationEntries = [];
       registered.lifecycleHooks = [];
+      registered.toolLifecycleHooks = [];
+      registered.systemPromptComposeHooks = [];
+      registered.desktopWidgets = [];
     }
   };
 }

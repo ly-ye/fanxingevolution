@@ -289,6 +289,31 @@
       var content = await ToolPkg.readResource("fanxing_guide");
       return { content: content };
     }));
+
+    // === 角色卡工具名别名（对齐 fanxing 角色卡期望的工具名，减少探测开销）===
+    // evolution_core 工具
+    ToolPkg.ipc.on("start_evolution", _wrapHandler(function () { return evolution.start_evolution(); }));
+    ToolPkg.ipc.on("stop_evolution", _wrapHandler(function () { return evolution.stop_evolution(); }));
+    ToolPkg.ipc.on("get_system_status", _wrapHandler(function () { return _getStateForExternal(); }));
+    ToolPkg.ipc.on("get_evolution_loop_info", _wrapHandler(function () { return evolution.get_evolution_loop_info(); }));
+    ToolPkg.ipc.on("get_generation_report", _wrapHandler(function () { return evolution.get_generation_report(); }));
+    ToolPkg.ipc.on("clear_evolution_log", _wrapHandler(function () { return evolution.clear_evolution_log(); }));
+    ToolPkg.ipc.on("process_task", _wrapHandler(function (p) { return evolution.process_task(p); }));
+    ToolPkg.ipc.on("toggle_auto_start", _wrapHandler(function (p) {
+      var r = evolution.toggle_auto_start({ enabled: p.enabled });
+      config.auto_start = !!(p.enabled);
+      saveConfiguration();
+      return r;
+    }));
+    // module_manager 工具
+    ToolPkg.ipc.on("enable_module", _wrapHandler(function (p) { return moduleManager.enable_module({ module_id: p.module_id }); }));
+    ToolPkg.ipc.on("disable_module", _wrapHandler(function (p) { return moduleManager.disable_module({ module_id: p.module_id }); }));
+    ToolPkg.ipc.on("enable_category", _wrapHandler(function (p) { return moduleManager.enable_category({ category: p.category }); }));
+    ToolPkg.ipc.on("disable_category", _wrapHandler(function (p) { return moduleManager.disable_category({ category: p.category }); }));
+    ToolPkg.ipc.on("enable_all", _wrapHandler(function () { return moduleManager.enable_all_modules(); }));
+    ToolPkg.ipc.on("disable_all", _wrapHandler(function () { return moduleManager.disable_all_modules(); }));
+    ToolPkg.ipc.on("get_module_info", _wrapHandler(function (p) { return moduleManager.get_module_info({ module_id: p.module_id }); }));
+    ToolPkg.ipc.on("get_module_doc", _wrapHandler(function (p) { return moduleManager.get_module_doc({ module_id: p.module_id }); }));
   }
 
   function _getStateForExternal() {
@@ -424,6 +449,15 @@
         icon: "auto_awesome",
         order: 100
       });
+      // 侧边栏导航入口（Operit 新 surface）
+      ToolPkg.registerNavigationEntry({
+        id: "fanxing_sidebar_nav",
+        route: "toolpkg:com.ye.fanxing_evolution:ui:fanxing_dashboard",
+        surface: "main_sidebar_plugins",
+        title: { zh: "繁星·自进化内核", en: "Fanxing Evolution" },
+        icon: "auto_awesome",
+        order: 100
+      });
     }
 
     // 2. 注册生命周期钩子
@@ -442,6 +476,79 @@
         id: "fanxing_on_background",
         event: "application_on_background",
         function: onApplicationBackground
+      });
+    }
+
+    // 3. 注册工具生命周期钩子（自动收集工具调用事件 → push 到事件总线）
+    if (ToolPkg && typeof ToolPkg.registerToolLifecycleHook === "function") {
+      ToolPkg.registerToolLifecycleHook({
+        id: "fanxing_tool_result",
+        event: "tool_execution_result",
+        function: function (payload) {
+          try {
+            eventBus.submit({
+              type: "task_result",
+              success: payload.success !== false,
+              modulesUsed: payload.modulesUsed || [],
+              durationMs: payload.durationMs || 0,
+              complexity: payload.complexity || 0.5
+            });
+          } catch (e) { /* 忽略收集错误 */ }
+          return { action: "allow" };
+        }
+      });
+      ToolPkg.registerToolLifecycleHook({
+        id: "fanxing_tool_error",
+        event: "tool_execution_error",
+        function: function (payload) {
+          try {
+            eventBus.submit({
+              type: "error_path",
+              moduleId: payload.moduleId || null,
+              errorType: payload.errorType || "tool_fail",
+              recovered: false
+            });
+          } catch (e) { /* 忽略 */ }
+          return { action: "allow" };
+        }
+      });
+    }
+
+    // 4. 注册系统提示词组合钩子（注入进化状态摘要到繁星系统提示词）
+    if (ToolPkg && typeof ToolPkg.registerSystemPromptComposeHook === "function") {
+      ToolPkg.registerSystemPromptComposeHook({
+        id: "fanxing_prompt_inject",
+        event: "compose_system_prompt_sections",
+        function: function () {
+          try {
+            var status = evolution.get_system_status();
+            var driftText = status.evolutionDrift ? "检测到漂移(" + status.driftGenerations + "代)" : "稳定";
+            var section = {
+              title: "进化状态摘要",
+              content: "代数:" + status.generation +
+                " 模式:" + status.evolutionMode +
+                " 启用模块:" + status.totalEnabledModules + "/" + status.moduleUpperLimit +
+                " 知识增长:" + status.knowledgeGrowth.toFixed(2) +
+                " 漂移:" + driftText
+            };
+            return { sections: [section] };
+          } catch (e) {
+            return { sections: [] };
+          }
+        }
+      });
+    }
+
+    // 5. 注册桌面小组件（Operit 新能力，桌面显示进化状态）
+    if (ToolPkg && typeof ToolPkg.registerDesktopWidget === "function") {
+      ToolPkg.registerDesktopWidget({
+        id: "fanxing_widget",
+        route: "toolpkg:com.ye.fanxing_evolution:ui:fanxing_dashboard",
+        title: { zh: "繁星进化", en: "Fanxing Evolution" },
+        subtitle: { zh: "自进化内核", en: "Self-Evolving Core" },
+        description: { zh: "显示进化状态概览", en: "Evolution status overview" },
+        icon: "auto_awesome",
+        order: 100
       });
     }
 

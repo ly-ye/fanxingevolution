@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "toolpkg_id": "com.ye.fanxing_evolution",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "夜",
   "main": "main.js",
   "display_name": {
