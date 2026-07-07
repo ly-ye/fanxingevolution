@@ -1,0 +1,99 @@
+/*
+ * 繁星·自进化内核 - 48 模块索引（内联数据，去 fs/path 依赖）
+ * 创作者：夜
+ * 数据源：modules_index.json，内联为 JS 模块以适配 QuickJS 运行时
+ */
+
+(function () {
+  "use strict";
+
+  var DATA = {
+    version: "1.0.0",
+    total_modules: 48,
+    stages: [
+      { id: "perception", name: "感知", order: 1, module_count: 5 },
+      { id: "memory", name: "记忆", order: 2, module_count: 3 },
+      { id: "thinking", name: "思考", order: 3, module_count: 8 },
+      { id: "action", name: "行动", order: 4, module_count: 9 },
+      { id: "reflection", name: "反思", order: 5, module_count: 5 },
+      { id: "evolution", name: "进化", order: 6, module_count: 7 },
+      { id: "infrastructure", name: "基础设施", order: 7, module_count: 8 },
+      { id: "security", name: "安全扩展", order: 8, module_count: 3 }
+    ],
+    categories: {
+      perception: "感知 (1-5)",
+      memory: "记忆 (6-8)",
+      thinking: "思考 (9-16)",
+      action: "行动 (17-25)",
+      reflection: "反思 (26-30)",
+      evolution: "进化 (31-37)",
+      infrastructure: "基础设施 (38-45)",
+      security: "安全扩展 (46-48)",
+      custom: "自定义模块"
+    },
+    modules: [
+      { id: "context_awareness", name: "上下文感知", filename: "context_awareness.md", category: "perception", index: 1, stage: "perception", description: "时间/用户/任务上下文感知、重要性评估、焦点管理、干扰过滤（整合自 attention）", merged_from: ["attention"] },
+      { id: "nlu_engine", name: "自然语言理解", filename: "nlu_engine.md", category: "perception", index: 2, stage: "perception", description: "意图识别、实体抽取、槽位填充" },
+      { id: "emotional_intelligence", name: "情感智能", filename: "emotional_intelligence.md", category: "perception", index: 3, stage: "perception", description: "情感识别、解读、响应生成、情感记忆" },
+      { id: "multimodal", name: "多模态", filename: "multimodal.md", category: "perception", index: 4, stage: "perception", description: "文本/图像/音频处理、跨模态关联与融合" },
+      { id: "active_exploration", name: "主动探索", filename: "active_exploration.md", category: "perception", index: 5, stage: "perception", description: "知识空白发现、探索策略、自学机制" },
+
+      { id: "memory", name: "记忆系统", filename: "memory.md", category: "memory", index: 6, stage: "memory", description: "短期/长期/情景记忆、用户画像、记忆巩固、遗忘曲线、空间记忆组织（整合自 memory_palace）", merged_from: ["memory_palace"] },
+      { id: "knowledge_graph", name: "知识图谱", filename: "knowledge_graph.md", category: "memory", index: 7, stage: "memory", description: "实体识别、关系抽取、图谱存储、语义推理" },
+      { id: "vector_store", name: "向量数据库", filename: "vector_store.md", category: "memory", index: 8, stage: "memory", description: "向量存储、余弦/欧氏/点积相似度检索" },
+
+      { id: "metacognition", name: "元认知", filename: "metacognition.md", category: "thinking", index: 9, stage: "thinking", description: "能力评估、置信度计算、知识空白检测、求助决策" },
+      { id: "causal_reasoning", name: "因果推理", filename: "causal_reasoning.md", category: "thinking", index: 10, stage: "thinking", description: "因果识别、图构建、反事实推理、神经特征提取与符号推理混合决策（整合自 neuro_symbolic）", merged_from: ["neuro_symbolic"] },
+      { id: "creative_thinking", name: "创造性思维", filename: "creative_thinking.md", category: "thinking", index: 11, stage: "thinking", description: "发散思维、类比推理、组合创新" },
+      { id: "debate_reasoning", name: "辩论推理", filename: "debate_reasoning.md", category: "thinking", index: 12, stage: "thinking", description: "多视角辩论、批判性审查、共识决策" },
+      { id: "recommendation", name: "推荐引擎", filename: "recommendation.md", category: "thinking", index: 13, stage: "thinking", description: "协同过滤、内容推荐、混合推荐" },
+      { id: "prompt_engineering", name: "提示工程", filename: "prompt_engineering.md", category: "thinking", index: 14, stage: "thinking", description: "提示生成/优化/A/B测试/评估，编辑/生成/文本梯度/进化算法自动优化提示词（整合自 prompt_optimizer）", merged_from: ["prompt_optimizer"] },
+      { id: "learning_strategies", name: "学习策略", filename: "learning_strategies.md", category: "thinking", index: 15, stage: "thinking", description: "元学习/强化学习/自监督/自适应学习率/持续学习/迁移学习的统一学习策略框架", merged_from: ["meta_learning", "reinforcement_learning", "self_supervised", "adaptive_learning_rate", "continual_learning", "transfer_learning"] },
+      { id: "collaboration", name: "协作系统", filename: "collaboration.md", category: "thinking", index: 16, stage: "thinking", description: "能力自评、协作者发现、任务分配、实例管理与负载均衡（整合自 distributed_collaboration）", merged_from: ["distributed_collaboration"] },
+
+      { id: "goal_planning", name: "目标规划", filename: "goal_planning.md", category: "action", index: 17, stage: "action", description: "目标分解、DAG调度、进度追踪、计划调整" },
+      { id: "task_orchestration", name: "任务编排", filename: "task_orchestration.md", category: "action", index: 18, stage: "action", description: "DAG任务编排、依赖解析、并行调度、可视化工作流、条件分支、循环（整合自 workflow_engine）", merged_from: ["workflow_engine"] },
+      { id: "code_generation", name: "代码生成", filename: "code_generation.md", category: "action", index: 19, stage: "action", description: "代码模板/优化/质量评估/重构建议，AST解析、API文档生成、变更日志（整合自 auto_documentation）", merged_from: ["auto_documentation"] },
+      { id: "tool_extender", name: "工具扩展", filename: "tool_extender.md", category: "action", index: 20, stage: "action", description: "动态工具注册、工具学习、工具编排、性能追踪，AI可调用实用工具集合（整合自 toolkit）", merged_from: ["toolkit"] },
+      { id: "tool_creator", name: "工具创造器", filename: "tool_creator.md", category: "action", index: 21, stage: "action", description: "根据任务需求自主生成、封装和进化新工具" },
+      { id: "domain_adapter", name: "领域适配器", filename: "domain_adapter.md", category: "action", index: 22, stage: "action", description: "医疗/金融/法律/代码等垂直领域知识与约束注入" },
+      { id: "harmony_agent", name: "鸿蒙智能体", filename: "harmony_agent.md", category: "action", index: 23, stage: "action", description: "HarmonyOS Agent/Skill集成与设备交互自动化" },
+      { id: "test_automation", name: "测试自动化", filename: "test_automation.md", category: "action", index: 24, stage: "action", description: "测试生成、执行、覆盖率分析" },
+      { id: "device_automation", name: "设备自动化", filename: "device_automation.md", category: "action", index: 25, stage: "action", description: "浏览器自动化与桌面自动化统一通道（整合自 browser_automation+desktop_automation）", merged_from: ["browser_automation", "desktop_automation"] },
+
+      { id: "reflection", name: "反思循环", filename: "reflection.md", category: "reflection", index: 26, stage: "reflection", description: "经验提取、模式识别、策略优化、知识更新" },
+      { id: "decision_patterns", name: "决策模式", filename: "decision_patterns.md", category: "reflection", index: 27, stage: "reflection", description: "决策记录、模式识别、策略优化、趋势/行为/需求预测（整合自 predictive_learning）", merged_from: ["predictive_learning"] },
+      { id: "knowledge_distillation", name: "知识蒸馏", filename: "knowledge_distillation.md", category: "reflection", index: 28, stage: "reflection", description: "模式提取、规则生成、知识压缩" },
+      { id: "error_learning", name: "错误学习器", filename: "error_learning.md", category: "reflection", index: 29, stage: "reflection", description: "从失败和修正中提取经验，避免重复犯错" },
+      { id: "diagnostics", name: "诊断系统", filename: "diagnostics.md", category: "reflection", index: 30, stage: "reflection", description: "性能分析、瓶颈检测、自动优化、异常检测、日志收集/模式识别/趋势分析（整合自 performance_optimization+log_analysis）", merged_from: ["performance_optimization", "log_analysis"] },
+
+      { id: "self_improver", name: "代码自改进", filename: "self_improver.md", category: "evolution", index: 31, stage: "evolution", description: "AST代码分析、缺陷检测、自动修复、版本管理" },
+      { id: "knowledge_evolution", name: "知识进化", filename: "knowledge_evolution.md", category: "evolution", index: 32, stage: "evolution", description: "版本管理、冲突检测、知识合并" },
+      { id: "self_healing", name: "自愈系统", filename: "self_healing.md", category: "evolution", index: 33, stage: "evolution", description: "故障检测/诊断、自动修复、健康监控、架构监控、瓶颈识别、动态伸缩（整合自 adaptive_architecture）", merged_from: ["adaptive_architecture"] },
+      { id: "evolution_laws", name: "进化三定律引擎", filename: "evolution_laws.md", category: "evolution", index: 34, stage: "evolution", description: "Endure/Excel/Evolve三定律约束、安全进化保障" },
+      { id: "paradigm_evolution", name: "范式演进器", filename: "paradigm_evolution.md", category: "evolution", index: 35, stage: "evolution", description: "MOP→MOA→MAO→MASE四阶段范式演进与路径规划" },
+      { id: "multi_agent_topology", name: "多智能体拓扑", filename: "multi_agent_topology.md", category: "evolution", index: 36, stage: "evolution", description: "动态生成和优化多智能体协作网络结构" },
+      { id: "agent_communication", name: "智能体通信协议", filename: "agent_communication.md", category: "evolution", index: 37, stage: "evolution", description: "A2A/MCP协议、结构化与自然语言通信" },
+
+      { id: "cache_manager", name: "缓存管理", filename: "cache_manager.md", category: "infrastructure", index: 38, stage: "infrastructure", description: "LRU/LFU缓存、标签失效、缓存穿透保护" },
+      { id: "scheduler", name: "调度器", filename: "scheduler.md", category: "infrastructure", index: 39, stage: "infrastructure", description: "Cron定时、间隔调度、延迟执行、回调管理" },
+      { id: "session_manager", name: "会话管理", filename: "session_manager.md", category: "infrastructure", index: 40, stage: "infrastructure", description: "会话创建/恢复、状态持久化、超时管理" },
+      { id: "notification_center", name: "通知中心", filename: "notification_center.md", category: "infrastructure", index: 41, stage: "infrastructure", description: "多渠道通知、订阅、模板、广播、指标收集、阈值监控、告警触发、健康检查（整合自 monitoring_alerting）", merged_from: ["monitoring_alerting"] },
+      { id: "benchmark_evaluator", name: "基准评测器", filename: "benchmark_evaluator.md", category: "infrastructure", index: 42, stage: "infrastructure", description: "ToolBench/SwarmBench/RedCode式动态能力评测" },
+      { id: "skill_market", name: "Skill市场", filename: "skill_market.md", category: "infrastructure", index: 43, stage: "infrastructure", description: "外部Skill发现、安装、版本管理与权限控制" },
+      { id: "configuration_management", name: "配置管理", filename: "configuration_management.md", category: "infrastructure", index: 44, stage: "infrastructure", description: "配置存储、版本控制、热更新、环境管理" },
+      { id: "llm_integration", name: "LLM集成", filename: "llm_integration.md", category: "infrastructure", index: 45, stage: "infrastructure", description: "统一LLM接口、流式输出、工具调用、语义缓存、上下文压缩、模型路由（整合自 token_optimizer）", merged_from: ["token_optimizer"] },
+
+      { id: "permission_control", name: "权限控制", filename: "permission_control.md", category: "security", index: 46, stage: "security", description: "操作权限管理、安全控制、审计日志、哈希/HMAC签名/加密解密/密钥管理、限流（整合自 rate_limiter+encryption_service）", merged_from: ["rate_limiter", "encryption_service"] },
+      { id: "plugin_system", name: "插件系统", filename: "plugin_system.md", category: "security", index: 47, stage: "security", description: "插件注册/加载/卸载、钩子、生命周期管理" },
+      { id: "search_engine", name: "全文检索", filename: "search_engine.md", category: "security", index: 48, stage: "security", description: "倒排索引、BM25排序、模糊搜索、搜索建议" }
+    ]
+  };
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = DATA;
+  }
+  if (typeof exports !== "undefined") {
+    exports.DATA = DATA;
+  }
+})();

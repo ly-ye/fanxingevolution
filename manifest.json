@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "toolpkg_id": "com.ye.fanxing_evolution",
+  "version": "1.0.0",
+  "author": "夜",
+  "main": "main.js",
+  "display_name": {
+    "zh": "繁星·自进化内核",
+    "en": "Fanxing Evolution Core",
+    "default": "Fanxing Evolution Core"
+  },
+  "description": {
+    "zh": "繁星的外挂进化系统。事件驱动进化指标，三定律门控，Skill↔Module 映射，稳定性信号暴露。8阶段进化循环，48模块协同。",
+    "en": "Fanxing's external evolution system. Event-driven metrics, three-laws gating, Skill↔Module mapping, stability signal exposure. 8-stage evolution loop with 48 modules.",
+    "default": "Fanxing's external evolution system."
+  },
+  "enabled_by_default": false,
+  "resources": [
+    {
+      "key": "fanxing_guide",
+      "path": "modules/fanxing_guide.md",
+      "mime": "text/markdown"
+    }
+  ]
+}
