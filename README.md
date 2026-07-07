@@ -49,18 +49,19 @@ FanxingEvolution/
 # 产出：FanxingEvolution-1.1.0.toolpkg
 ```
 
-`.toolpkg` 是标准 ZIP，要求条目路径使用正斜杠（ZIP 规范），结构如下：
+`.toolpkg` 是标准 ZIP，要求条目路径使用正斜杠（ZIP 规范），项目主体置于 `fanxing-evolution/` 文件夹内，结构如下：
 
 ```
 FanxingEvolution-1.1.0.toolpkg
-├── manifest.json
-├── main.js
-├── packages/*.js
-├── ui/dashboard/index.ui.js
-└── modules/*.md + modules_index.js
+└── fanxing-evolution/
+    ├── manifest.json
+    ├── main.js
+    ├── packages/*.js
+    ├── ui/dashboard/index.ui.js
+    └── modules/*.md + modules_index.js
 ```
 
-打包脚本应**排除** `tests/`、`modules_index.json`、`README.md`、`.gitignore`。
+打包脚本应**排除** `tests/`、`modules_index.json`、`README.md`、`.gitignore`、`fanxing/`、`*.toolpkg`。
 
 ### 方式二：直接导入
 
