@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "toolpkg_id": "com.ye.fanxing_evolution",
-  "version": "1.1.0",
-  "author": "夜",
+  "version": "1.2.0",
+  "author": ["夜"],
   "main": "main.js",
   "display_name": {
     "zh": "繁星·自进化内核",
@@ -14,7 +14,6 @@
     "en": "Fanxing's external evolution system. Event-driven metrics, three-laws gating, Skill↔Module mapping, stability signal exposure. 8-stage evolution loop with 48 modules.",
     "default": "Fanxing's external evolution system."
   },
-  "enabled_by_default": false,
   "resources": [
     {
       "key": "fanxing_guide",

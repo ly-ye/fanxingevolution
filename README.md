@@ -1,7 +1,7 @@
 # 繁星·自进化内核（FanxingEvolution）
 
 > **创作者**：夜
-> **版本**：1.1.0
+> **版本**：1.2.0
 > **ToolPkg ID**：`com.ye.fanxing_evolution`
 > **运行时**：Operit AI ToolPkg（QuickJS）
 
@@ -46,26 +46,25 @@ FanxingEvolution/
 
 ```bash
 # 仓库根目录执行（需要 PowerShell + .NET）
-# 产出：FanxingEvolution-1.1.0.toolpkg
+# 产出：FanxingEvolution-1.2.0.toolpkg
 ```
 
-`.toolpkg` 是标准 ZIP，要求条目路径使用正斜杠（ZIP 规范），项目主体置于 `fanxing-evolution/` 文件夹内，结构如下：
+`.toolpkg` 是标准 ZIP，要求条目路径使用正斜杠（ZIP 规范），文件直接置于 ZIP 根目录（符合 Operit 官方 ToolPkg 规范），结构如下：
 
 ```
-FanxingEvolution-1.1.0.toolpkg
-└── fanxing-evolution/
-    ├── manifest.json
-    ├── main.js
-    ├── packages/*.js
-    ├── ui/dashboard/index.ui.js
-    └── modules/*.md + modules_index.js
+FanxingEvolution-1.2.0.toolpkg
+├── manifest.json
+├── main.js
+├── packages/*.js
+├── ui/dashboard/index.ui.js
+└── modules/*.md + modules_index.js
 ```
 
 打包脚本应**排除** `tests/`、`modules_index.json`、`README.md`、`.gitignore`、`fanxing/`、`*.toolpkg`。
 
 ### 方式二：直接导入
 
-在 Operit AI 中导入 `FanxingEvolution-1.1.0.toolpkg`，插件 ID 为 `com.ye.fanxing_evolution`，`enabled_by_default: false`（需手动启用）。
+在 Operit AI 中导入 `FanxingEvolution-1.2.0.toolpkg`，插件 ID 为 `com.ye.fanxing_evolution`。
 
 ## Operit 兼容性
 
@@ -80,7 +79,7 @@ FanxingEvolution-1.1.0.toolpkg
 | UI 约定 | `exports.default = async function(ctx)` 返回 ComposeNode 树 |
 | IPC | `ToolPkg.ipc.on(name, handler)` 注册，`ToolPkg.ipc.call(name, payload)` 返回 Promise |
 | 注册 API | `registerUiRoute` / `registerToolboxUiModule` / `registerNavigationEntry` / `registerAppLifecycleHook` |
-| manifest | 仅声明 `schema_version`/`toolpkg_id`/`version`/`author`/`main`/`display_name`/`description`/`enabled_by_default`/`resources` |
+| manifest | 仅声明 `schema_version`/`toolpkg_id`/`version`/`author`/`main`/`display_name`/`description`/`resources` |
 
 **未使用**的不存在 API：`ToolPkg.storage` / `ToolPkg.files` / `ToolPkg.configuration` / `ToolPkg.ui.app` / `ToolPkg.ipc.emit`。
 
